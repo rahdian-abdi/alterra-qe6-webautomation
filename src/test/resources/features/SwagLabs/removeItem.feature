@@ -1,6 +1,6 @@
 Feature: Remove item feature
 
-  @assignment
+
   Scenario Outline: Remove item from Cart Page
     Given User already logged in
     And User already add an item to cart

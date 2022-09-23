@@ -29,4 +29,17 @@ public class SauceDemoInventoryPage extends PageObject {
     public String verifiedActiveSort() {
         return driver.findElement(activeSort).getAttribute("innerHTML");
     }
+
+    public List<String> productListOnInventoryPage() {
+        int initiateProductSize = 10;
+        List<String> productList = new ArrayList<>();
+        for (int i=1 ; i<initiateProductSize ; i++){
+            try {
+                productList.add($(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[1]/a/div")).getText());
+            } catch (Exception e) {
+                return productList;
+            }
+        }
+        return productList;
+    }
 }

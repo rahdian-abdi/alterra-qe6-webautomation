@@ -30,5 +30,9 @@ public class SortingItemStepDefinition {
     @Then("The products should sorted by {string}")
     public void the_products_should_sorted_by(String sortBy) {
         assertEquals(sortBy, inventory.verifiedActiveSort());
+        String expectedFirst = "Test.allTheThings() T-Shirt (Red)";
+        assertEquals(expectedFirst, inventory.productListOnInventoryPage().get(0));
+        String expectedLast = "Sauce Labs Backpack";
+        assertEquals(expectedLast, inventory.productListOnInventoryPage().get(5));
     }
 }

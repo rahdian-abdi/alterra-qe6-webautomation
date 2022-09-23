@@ -1,6 +1,5 @@
 Feature: Sorting Items
 
-  @assignment
   Scenario Outline: Sort product by descending
     Given User already logged in
     And User already add an item to cart

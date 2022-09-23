@@ -1,6 +1,6 @@
 Feature: Continue Shopping feature
 
-  @assignment
+
   Scenario: Verify Continue shopping button is working
     Given User already logged in
     And User already add an item to cart
