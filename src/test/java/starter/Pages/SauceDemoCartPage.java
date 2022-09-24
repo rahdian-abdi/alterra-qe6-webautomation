@@ -10,6 +10,8 @@ import java.util.List;
 public class SauceDemoCartPage extends PageObject {
     WebDriver driver = getDriver();
 
+    private final By cartBadgeNumberOnCart = By.className("shopping_cart_badge");
+
     public String verifiedCartPage() {
         return driver.getCurrentUrl();
     }
@@ -51,6 +53,10 @@ public class SauceDemoCartPage extends PageObject {
             }
         }
         return productList;
+    }
+
+    public int verifiedNumberBadge() {
+        return Integer.parseInt(driver.findElement(cartBadgeNumberOnCart).getText());
     }
 
 }

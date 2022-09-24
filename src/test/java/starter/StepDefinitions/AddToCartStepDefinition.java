@@ -25,11 +25,14 @@ public class AddToCartStepDefinition {
     @When("She select item {string}")
     public void she_select_item(String item) {
         addtocart.clickAddToCart(item);
+        addtocart.moreItem();
     }
 
     @Then("Add To Cart icon will get badge count")
     public void add_to_cart_icon_will_get_badge_count() {
         boolean expected = true;
         assertEquals(expected, inventory.verifiedAddToCart());
+        // Verify if Badge Number equals to added item
+        assertEquals(inventory.verifiedNumberBadge(), inventory.verifiedNumberItemHasAddedToCart());
     }
 }

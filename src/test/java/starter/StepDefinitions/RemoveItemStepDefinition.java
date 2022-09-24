@@ -22,16 +22,18 @@ public class RemoveItemStepDefinition {
     @When("User is directed to Cart Page")
     public void user_is_directed_to_cart_page() {
         cart.verifiedCartPage();
-        assertEquals(2, cart.verifiedItemNumberOnCart());
+        // Verify that number on cart badge equal to number of item on cart page before item removed
+        assertEquals(cart.verifiedNumberBadge(), cart.verifiedItemNumberOnCart());
     }
     @When("User remove item with id {string}")
     public void user_remove_item_with_id(String remove) {
         removeItem.removeItem(remove);
-        assertEquals(1, cart.verifiedItemNumberOnCart());
     }
     @Then("Item will be removed from cart")
     public void item_will_be_removed_from_cart() {
         boolean result = true;
         assertEquals(result, cart.isItemRemoved());
+        // Verify that number on cart badge equal to number of item on cart page after item removed
+        assertEquals(cart.verifiedNumberBadge(), cart.verifiedItemNumberOnCart());
     }
 }

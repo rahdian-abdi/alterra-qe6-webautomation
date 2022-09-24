@@ -17,4 +17,8 @@ public class AddToCartStep extends PageObject {
     public void clickAddToCartPre() {
         $(By.id("add-to-cart-sauce-labs-backpack")).click();
     }
+    @Step
+    public void moreItem(){
+        $(By.id("add-to-cart-sauce-labs-bike-light")).click();
+    }
 }
