@@ -44,19 +44,6 @@ public class SauceDemoCartPage extends PageObject {
         }
         return result;
     }
-
-    public List<String> productListOnCart() {
-        List<String> productList = new ArrayList<>();
-        for (int i=3 ; i<initiateProductListSizeOnCart()+3 ; i++){
-            try {
-                productList.add($(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div["+i+"]/div[2]/a/div")).getText());
-            } catch (Exception e) {
-                return productList;
-            }
-        }
-        return productList;
-    }
-
     public int verifiedNumberBadge() {
         return Integer.parseInt(driver.findElement(cartBadgeNumberOnCart).getText());
     }

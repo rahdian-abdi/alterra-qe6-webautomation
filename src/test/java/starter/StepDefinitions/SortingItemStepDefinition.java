@@ -38,7 +38,6 @@ public class SortingItemStepDefinition {
         // Verify that last item appear is as expected
         String expectedLast = "Sauce Labs Backpack";
         assertEquals(expectedLast, inventory.initiateProductList().get(5));
-        inventory.verifiedDescendingSortingItem();
         // To confirm sorted items are the same
         String[] productSortedList = new String[inventory.initiateProductListSize()];
         for (int i=0 ; i<inventory.initiateProductListSize();i++){
