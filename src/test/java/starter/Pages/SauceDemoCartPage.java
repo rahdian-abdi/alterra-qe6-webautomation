@@ -3,6 +3,7 @@ package starter.Pages;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,22 @@ public class SauceDemoCartPage extends PageObject {
 
     public String verifiedCartPage() {
         return driver.getCurrentUrl();
+    }
+    public int initiateProductListSizeOnCart() {
+        List<String> getList = new ArrayList<>();
+        List<WebElement> elementList = driver.findElements(By.className("cart_item"));
+        for (WebElement list : elementList){
+            getList.add(list.getText());
+        }
+        return getList.size();
+    }
+    public List<String> initiateProductListOnCart() {
+        List<String> getList = new ArrayList<>();
+        List<WebElement> elementList = driver.findElements(By.className("inventory_item_name"));
+        for (WebElement list : elementList){
+            getList.add(list.getText());
+        }
+        return getList;
     }
 
     public boolean isItemRemoved() {
@@ -28,24 +45,9 @@ public class SauceDemoCartPage extends PageObject {
         return result;
     }
 
-    public int verifiedItemNumberOnCart() {
-        int initiateProductSize = 10;
-        int actualProductSize = 0;
-        List<String> productList = new ArrayList<>();
-        for (int i=3 ; i<initiateProductSize ; i++){
-            try {
-                productList.add($(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div["+i+"]/div[2]/a/div")).getText());
-            } catch (Exception e) {
-                actualProductSize = productList.size();
-            }
-        }
-        return actualProductSize;
-    }
-
     public List<String> productListOnCart() {
-        int initiateProductSize = 10;
         List<String> productList = new ArrayList<>();
-        for (int i=3 ; i<initiateProductSize ; i++){
+        for (int i=3 ; i<initiateProductListSizeOnCart()+3 ; i++){
             try {
                 productList.add($(By.xpath("/html/body/div/div/div/div[2]/div/div[1]/div["+i+"]/div[2]/a/div")).getText());
             } catch (Exception e) {

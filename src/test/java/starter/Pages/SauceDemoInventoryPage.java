@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -17,6 +18,7 @@ public class SauceDemoInventoryPage extends PageObject {
     private final By getHeaderText = By.xpath("//*[@id=\"header_container\"]/div[2]/span");
     private final By activeSort = By.className("active_option");
     private final By cartBadgeNumber = By.className("shopping_cart_badge");
+    private final By numberOfProductList = By.className("inventory_item_name");
 
     public String verifiedInventoryPage(){
         return driver.getCurrentUrl();
@@ -27,10 +29,27 @@ public class SauceDemoInventoryPage extends PageObject {
     public boolean verifiedAddToCart(){
         return driver.findElement(cartNotification).isDisplayed();
     }
+    public List<String> initiateProductList() {
+        List<String> getList = new ArrayList<>();
+        List<WebElement> elementList = driver.findElements(numberOfProductList);
+        for (WebElement list : elementList){
+            getList.add(list.getText());
+        }
+        return getList;
+    }
+    public int initiateProductListSize() {
+        List<String> getList = new ArrayList<>();
+        List<WebElement> elementList = driver.findElements(numberOfProductList);
+        for (WebElement list : elementList){
+            getList.add(list.getText());
+        }
+        return getList.size();
+    }
     public int verifiedNumberItemHasAddedToCart() {
-        int initiateProductSize = 10;
+        // can't use btn btn_secondary btn_small btn_inventory because class names not permitted
+        // Thus using full xpath to get list that "Remove" button is exist on inventory page
         List<String> addedItem = new ArrayList<>();
-        for (int i=1 ; i<initiateProductSize ; i++){
+        for (int i=1 ; i<initiateProductListSize() ; i++){
             try {
                 if ($(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[2]/button"))
                         .getAttribute("innerHTML")
@@ -51,16 +70,12 @@ public class SauceDemoInventoryPage extends PageObject {
     public String verifiedActiveSort() {
         return driver.findElement(activeSort).getAttribute("innerHTML");
     }
-    public List<String> productListOnInventoryPage() {
-        int initiateProductSize = 10;
-        List<String> productList = new ArrayList<>();
-        for (int i=1 ; i<initiateProductSize ; i++){
-            try {
-                productList.add($(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[1]/a/div")).getText());
-            } catch (Exception e) {
-                return productList;
-            }
+    public String[] verifiedDescendingSortingItem() {
+        String[] arraySorted = new String[initiateProductListSize()];
+        for (int i=0 ; i<initiateProductListSize();i++){
+            arraySorted[i] = initiateProductList().get(i);
         }
-        return productList;
+        Arrays.sort(arraySorted, Collections.reverseOrder());
+        return arraySorted;
     }
 }

@@ -18,8 +18,8 @@ public class CheckoutStepDefinition {
 
     @When("User click on Checkout Button")
     public void user_click_on_checkout_button() {
-        cart.verifiedItemNumberOnCart();
-        cart.productListOnCart();
+        cart.initiateProductListSizeOnCart();
+        cart.initiateProductListOnCart();
         checkoutStep.clickCheckoutButton();
     }
     @When("User is redirected to Checkout Step One Page")
@@ -48,9 +48,9 @@ public class CheckoutStepDefinition {
         String url = "https://www.saucedemo.com/checkout-step-two.html";
         assertEquals(url, stepTwo.verifiedUrl());
         // Verify that number of item on cart equals to number of item on final page
-        assertEquals(cart.verifiedItemNumberOnCart(), stepTwo.verifiedItemNumberOnStepTwoPage());
+        assertEquals(cart.initiateProductListSizeOnCart(), stepTwo.initiateNumberOfListItemInPageTwo());
         // Verify that item on cart appear on final page
-        assertEquals(cart.productListOnCart(), stepTwo.productListOnStepTwoPage());
+        assertEquals(cart.initiateProductListOnCart(), stepTwo.initiateListItemInPageTwo());
     }
     @When("User click on Finish Button")
     public void user_click_on_finish_button() {

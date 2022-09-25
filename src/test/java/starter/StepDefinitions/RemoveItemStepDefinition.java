@@ -23,7 +23,7 @@ public class RemoveItemStepDefinition {
     public void user_is_directed_to_cart_page() {
         cart.verifiedCartPage();
         // Verify that number on cart badge equal to number of item on cart page before item removed
-        assertEquals(cart.verifiedNumberBadge(), cart.verifiedItemNumberOnCart());
+        assertEquals(cart.verifiedNumberBadge(), cart.initiateProductListSizeOnCart());
     }
     @When("User remove item with id {string}")
     public void user_remove_item_with_id(String remove) {
@@ -34,6 +34,6 @@ public class RemoveItemStepDefinition {
         boolean result = true;
         assertEquals(result, cart.isItemRemoved());
         // Verify that number on cart badge equal to number of item on cart page after item removed
-        assertEquals(cart.verifiedNumberBadge(), cart.verifiedItemNumberOnCart());
+        assertEquals(cart.verifiedNumberBadge(), cart.initiateProductListSizeOnCart());
     }
 }
