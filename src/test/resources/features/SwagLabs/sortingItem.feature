@@ -1,5 +1,4 @@
 Feature: Sorting Items
-
   Scenario Outline: Sort product by descending
     Given User already logged in
     And User already add an item to cart
@@ -7,4 +6,7 @@ Feature: Sorting Items
     Then The products should sorted by <sortOption>
     Examples:
     |sortOption|
+#    |"Name (A to Z)"|
     |"Name (Z to A)"|
+#    |"Price (low to high)"|
+#    |"Price (high to low)"|

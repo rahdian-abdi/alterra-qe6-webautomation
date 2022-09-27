@@ -29,6 +29,14 @@ public class SauceDemoInventoryPage extends PageObject {
     public boolean verifiedAddToCart(){
         return driver.findElement(cartNotification).isDisplayed();
     }
+    public int initiateProductListSize() {
+        List<String> getList = new ArrayList<>();
+        List<WebElement> elementList = driver.findElements(numberOfProductList);
+        for (WebElement list : elementList){
+            getList.add(list.getText());
+        }
+        return getList.size();
+    }
     public List<String> initiateProductList() {
         List<String> getList = new ArrayList<>();
         List<WebElement> elementList = driver.findElements(numberOfProductList);
@@ -37,13 +45,13 @@ public class SauceDemoInventoryPage extends PageObject {
         }
         return getList;
     }
-    public int initiateProductListSize() {
-        List<String> getList = new ArrayList<>();
-        List<WebElement> elementList = driver.findElements(numberOfProductList);
-        for (WebElement list : elementList){
-            getList.add(list.getText());
+    public List<Float> initiatePriceList() {
+        List<Float> getPriceList = new ArrayList<>();
+        List<WebElement> priceElement = driver.findElements(By.className("inventory_item_price"));
+        for (WebElement element : priceElement) {
+            getPriceList.add(Float.parseFloat(element.getText().substring(1)));
         }
-        return getList.size();
+        return getPriceList;
     }
     public int verifiedNumberItemHasAddedToCart() {
         // can't use btn btn_secondary btn_small btn_inventory because class names not permitted
@@ -70,6 +78,14 @@ public class SauceDemoInventoryPage extends PageObject {
     public String verifiedActiveSort() {
         return driver.findElement(activeSort).getAttribute("innerHTML");
     }
+    public String[] verifiedAscendingSortingItem() {
+        String[] arraySorted = new String[initiateProductListSize()];
+        for (int i=0 ; i<initiateProductListSize();i++){
+            arraySorted[i] = initiateProductList().get(i);
+        }
+        Arrays.sort(arraySorted);
+        return arraySorted;
+    }
     public String[] verifiedDescendingSortingItem() {
         String[] arraySorted = new String[initiateProductListSize()];
         for (int i=0 ; i<initiateProductListSize();i++){
@@ -78,4 +94,22 @@ public class SauceDemoInventoryPage extends PageObject {
         Arrays.sort(arraySorted, Collections.reverseOrder());
         return arraySorted;
     }
+    public Float[] verifiedAscendingPriceSortingItem() {
+        Float[] arraySorted = new Float[initiateProductListSize()];
+        for (int i=0 ; i<initiateProductListSize(); i++){
+            arraySorted[i] = initiatePriceList().get(i);
+        }
+        Arrays.sort(arraySorted);
+        return arraySorted;
+    }
+
+    public Float[] verifiedDescendingPriceSortingItem() {
+        Float[] arraySorted = new Float[initiateProductListSize()];
+        for (int i=0 ; i<initiateProductListSize(); i++){
+            arraySorted[i] = initiatePriceList().get(i);
+        }
+        Arrays.sort(arraySorted, Collections.reverseOrder());
+        return arraySorted;
+    }
+
 }

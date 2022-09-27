@@ -3,6 +3,8 @@ package starter.StepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import starter.Pages.SauceDemoInventoryPage;
 import starter.Step.AddToCartStep;
 import starter.Step.LoginStep;
@@ -11,10 +13,10 @@ import starter.Step.SortingItemStep;
 import static org.junit.Assert.*;
 
 
-public class SortingItemStepDefinition {
+public class SortingItemStepDefinition extends PageObject {
     SauceDemoInventoryPage inventory;
     LoginStep login;
-    AddToCartStep addtocart;
+    AddToCartStep addToCart;
     SortingItemStep sorting;
 
     @Given("User already logged in")
@@ -23,7 +25,7 @@ public class SortingItemStepDefinition {
     }
     @Given("User already add an item to cart")
     public void user_already_add_an_item_to_cart() {
-        addtocart.clickAddToCartPre();
+        addToCart.clickAddToCartPre();
     }
     @When("User select sort by {string}")
     public void user_select_sort_by(String sortBy) {
@@ -32,17 +34,37 @@ public class SortingItemStepDefinition {
     @Then("The products should sorted by {string}")
     public void the_products_should_sorted_by(String sortBy) {
         assertEquals(sortBy, inventory.verifiedActiveSort());
-        // Verify that first item appear is as expected
-        String expectedFirst = "Test.allTheThings() T-Shirt (Red)";
-        assertEquals(expectedFirst, inventory.initiateProductList().get(0));
-        // Verify that last item appear is as expected
-        String expectedLast = "Sauce Labs Backpack";
-        assertEquals(expectedLast, inventory.initiateProductList().get(5));
-        // To confirm sorted items are the same
-        String[] productSortedList = new String[inventory.initiateProductListSize()];
-        for (int i=0 ; i<inventory.initiateProductListSize();i++){
-            productSortedList[i] = inventory.initiateProductList().get(i);
+        switch (sortBy) {
+            case "Name (A to Z)":
+                String[] productAscSortedList = new String[inventory.initiateProductListSize()];
+                for (int i=0 ; i<inventory.initiateProductListSize();i++){
+                    productAscSortedList[i] = inventory.initiateProductList().get(i);
+                }
+                assertArrayEquals(inventory.verifiedAscendingSortingItem(), productAscSortedList);
+                break;
+            case "Name (Z to A)":
+                String[] productDescSortedList = new String[inventory.initiateProductListSize()];
+                for (int i=0 ; i<inventory.initiateProductListSize();i++){
+                    productDescSortedList[i] = inventory.initiateProductList().get(i);
+                }
+                assertArrayEquals(inventory.verifiedDescendingSortingItem(), productDescSortedList);
+                break;
+            case "Price (low to high)":
+                Float[] priceAscSortedList = new Float[inventory.initiateProductListSize()];
+                for (int i=0 ; i<inventory.initiateProductListSize();i++){
+                    priceAscSortedList[i] = inventory.initiatePriceList().get(i);
+                }
+                assertArrayEquals(inventory.verifiedAscendingPriceSortingItem(), priceAscSortedList);
+                break;
+            case "Price (high to low)":
+                Float[] priceDescSortedList = new Float[inventory.initiateProductListSize()];
+                for (int i=0 ; i<inventory.initiateProductListSize();i++){
+                    priceDescSortedList[i] = inventory.initiatePriceList().get(i);
+                }
+                assertArrayEquals(inventory.verifiedDescendingPriceSortingItem(), priceDescSortedList);
+                break;
+            default:
+                System.out.println("Not expected");
         }
-        assertArrayEquals(inventory.verifiedDescendingSortingItem(), productSortedList);
     }
 }

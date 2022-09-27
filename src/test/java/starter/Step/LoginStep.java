@@ -11,7 +11,6 @@ public class LoginStep extends PageObject {
 
     SauceDemoHomePage home;
     SauceDemoInventoryPage inventory;
-
     WebDriver driver = getDriver();
 
     private By usernameField = By.id("user-name");
@@ -47,7 +46,6 @@ public class LoginStep extends PageObject {
             System.out.println("Wrong credentials");
         }
     }
-
     @Step
     public void loginWithValidCredentialsFull(){
         home.open();
