@@ -4,7 +4,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.pages.PageObject;
-import org.openqa.selenium.By;
 import starter.Pages.SauceDemoInventoryPage;
 import starter.Step.AddToCartStep;
 import starter.Step.LoginStep;
@@ -25,7 +24,7 @@ public class SortingItemStepDefinition extends PageObject {
     }
     @Given("User already add an item to cart")
     public void user_already_add_an_item_to_cart() {
-        addToCart.clickAddToCartPre();
+        addToCart.clickAddToCartPreCondition();
     }
     @When("User select sort by {string}")
     public void user_select_sort_by(String sortBy) {
@@ -66,5 +65,6 @@ public class SortingItemStepDefinition extends PageObject {
             default:
                 System.out.println("Not expected");
         }
+        addToCart.clickRemovePreCondition();
     }
 }

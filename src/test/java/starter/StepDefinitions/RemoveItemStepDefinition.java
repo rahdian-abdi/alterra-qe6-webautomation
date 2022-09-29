@@ -21,7 +21,8 @@ public class RemoveItemStepDefinition {
     }
     @When("User is directed to Cart Page")
     public void user_is_directed_to_cart_page() {
-        cart.verifiedCartPage();
+        String URL = "https://www.saucedemo.com/cart.html";
+        assertEquals(URL, cart.verifiedCartPage());
         // Verify that number on cart badge equal to number of item on cart page before item removed
         assertEquals(cart.verifiedNumberBadge(), cart.initiateProductListSizeOnCart());
     }

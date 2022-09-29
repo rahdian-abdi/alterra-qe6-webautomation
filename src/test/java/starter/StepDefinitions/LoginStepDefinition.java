@@ -3,12 +3,15 @@ package starter.StepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import starter.Pages.SauceDemoHomePage;
 import starter.Pages.SauceDemoInventoryPage;
 import starter.Step.LoginStep;
+import static org.junit.Assert.*;
 
 public class LoginStepDefinition {
     LoginStep login;
     SauceDemoInventoryPage inventory;
+    SauceDemoHomePage home;
 
     @Given("Caca is on the homepage")
     public void caca_is_on_the_homepage() {
@@ -28,14 +31,12 @@ public class LoginStepDefinition {
     }
     @Then("She will be directed to inventory page")
     public void she_will_be_directed_to_inventory_page() {
-        if (login.loginVerified() && inventory.verifiedInventoryPageHeader().equals("PRODUCTS")){
-            System.out.println("Successfully login");
-        }
+        String inventoryUrl = "https://www.saucedemo.com/inventory.html";
+        assertEquals(inventoryUrl, inventory.verifiedInventoryPage());
     }
 
     @Then("She fail to login")
     public void sheFailToLogin() {
-        login.failToLogin();
-
+        assertNotEquals(home.failToLoginMessage(), null);
     }
 }

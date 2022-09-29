@@ -16,10 +16,9 @@ public class LoginStep extends PageObject {
     private By usernameField = By.id("user-name");
     private By passwordField = By.id("password");
     private By loginButton = By.id("login-button");
-    private By errorMessage = By.xpath("/html/body/div/div/div[2]/div[1]/div[1]/div/form/div[3]/h3");
+
     @Step
     public void openPage(){
-
         home.open();
     }
     @Step
@@ -33,18 +32,6 @@ public class LoginStep extends PageObject {
     @Step
     public void clickLogin(){
         driver.findElement(loginButton).click();
-    }
-    @Step
-    public boolean loginVerified(){
-        String inventoryUrl = "https://www.saucedemo.com/inventory.html";
-        return inventoryUrl.equals(inventory.verifiedInventoryPage());
-    }
-    @Step
-    public void failToLogin(){
-
-        if (driver.findElement(errorMessage).getText() != null) {
-            System.out.println("Wrong credentials");
-        }
     }
     @Step
     public void loginWithValidCredentialsFull(){

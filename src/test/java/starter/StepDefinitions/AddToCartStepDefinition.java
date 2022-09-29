@@ -19,7 +19,8 @@ public class AddToCartStepDefinition {
     }
     @Given("She is already on inventory page")
     public void she_is_already_on_inventory_page() {
-        login.loginVerified();
+        String inventoryUrl = "https://www.saucedemo.com/inventory.html";
+        assertEquals(inventoryUrl, inventory.verifiedInventoryPage());
     }
 
     @When("She select item {string}")
