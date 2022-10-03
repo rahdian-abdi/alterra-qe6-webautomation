@@ -13,5 +13,4 @@ Feature: Login functionality
     And She input "secret_sauce" on the password field
     And She click on the Login button
     Then She fail to login
-    Then She fail to login
 
