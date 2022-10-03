@@ -34,9 +34,8 @@ public class LoginStepDefinition {
         String inventoryUrl = "https://www.saucedemo.com/inventory.html";
         assertEquals(inventoryUrl, inventory.verifiedInventoryPage());
     }
-
     @Then("She fail to login")
     public void sheFailToLogin() {
-        assertNotEquals(home.failToLoginMessage(), null);
+        assertNotNull(home.failToLoginMessage());
     }
 }
