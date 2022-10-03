@@ -5,10 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class SauceDemoInventoryPage extends PageObject {
@@ -110,6 +107,28 @@ public class SauceDemoInventoryPage extends PageObject {
         }
         Arrays.sort(arraySorted, Collections.reverseOrder());
         return arraySorted;
+    }
+
+    public Map<Float, String> initiateMapItemAndPrice() {
+        Map<Float, String> mapThing = new HashMap<>();
+        for (int i=0 ; i<initiateProductListSize() ; i++){
+            mapThing.put(initiatePriceList().get(i), initiateProductList().get(i));
+        }
+        return mapThing;
+    }
+
+    public String[] mapSortedAscProduct() {
+        List<Float> productFromPrice = new ArrayList<Float>(initiateMapItemAndPrice().keySet());
+        List<String> getProductFromPrice = new ArrayList<>();
+        String[] product = new String[initiateProductListSize()];
+        Collections.sort(productFromPrice);
+        for (Float getProduct : productFromPrice){
+            getProductFromPrice.add(initiateMapItemAndPrice().get(getProduct));
+        }
+        for (int i=0 ; i<initiateMapItemAndPrice().size();i++){
+            product[i] = getProductFromPrice.get(i);
+        }
+        return product;
     }
 
 }
