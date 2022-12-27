@@ -4,12 +4,13 @@ import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import starter.Base.BasePageObject;
 
 import java.util.*;
 
 
-public class SauceDemoInventoryPage extends PageObject {
-    WebDriver driver = getDriver();
+public class SauceDemoInventoryPage extends BasePageObject {
+
 
     private final By cartNotification = By.cssSelector(".shopping_cart_badge");
     private final By getHeaderText = By.xpath("//*[@id=\"header_container\"]/div[2]/span");
@@ -18,33 +19,34 @@ public class SauceDemoInventoryPage extends PageObject {
     private final By numberOfProductList = By.className("inventory_item_name");
 
     public String verifiedInventoryPage(){
-        return driver.getCurrentUrl();
+        return getUrl();
     }
     public String verifiedInventoryPageHeader() {
-        return driver.findElement(getHeaderText).getText();
+        return getText(getHeaderText);
     }
     public boolean verifiedAddToCart(){
-        return driver.findElement(cartNotification).isDisplayed();
+        return isDisplayed(cartNotification);
     }
     public int initiateProductListSize() {
         List<String> getList = new ArrayList<>();
-        List<WebElement> elementList = driver.findElements(numberOfProductList);
+        List<WebElement> elementList = getElementList(numberOfProductList);
         for (WebElement list : elementList){
-            getList.add(list.getText());
+            getTextWebElement(list);
         }
         return getList.size();
     }
     public List<String> initiateProductList() {
         List<String> getList = new ArrayList<>();
-        List<WebElement> elementList = driver.findElements(numberOfProductList);
+        List<WebElement> elementList = findElements(numberOfProductList);
         for (WebElement list : elementList){
             getList.add(list.getText());
         }
         return getList;
     }
     public List<Float> initiatePriceList() {
+        final By price = By.className("inventory_item_price");
         List<Float> getPriceList = new ArrayList<>();
-        List<WebElement> priceElement = driver.findElements(By.className("inventory_item_price"));
+        List<WebElement> priceElement = findElements(price);
         for (WebElement element : priceElement) {
             getPriceList.add(Float.parseFloat(element.getText().substring(1)));
         }
@@ -56,10 +58,10 @@ public class SauceDemoInventoryPage extends PageObject {
         List<String> addedItem = new ArrayList<>();
         for (int i=1 ; i<initiateProductListSize() ; i++){
             try {
-                if ($(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[2]/button"))
+                if (getElement(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[2]/button"))
                         .getAttribute("innerHTML")
                         .equals("Remove")){
-                    addedItem.add($(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[2]/button"))
+                    addedItem.add(getElement(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div["+i+"]/div[2]/div[2]/button"))
                             .getText());
                 }
             } catch (Exception e){
@@ -70,10 +72,10 @@ public class SauceDemoInventoryPage extends PageObject {
     }
 
     public int verifiedNumberBadge() {
-        return Integer.parseInt(driver.findElement(cartBadgeNumber).getText());
+        return Integer.parseInt(getText(cartBadgeNumber));
     }
     public String verifiedActiveSort() {
-        return driver.findElement(activeSort).getAttribute("innerHTML");
+        return getElement(activeSort).getAttribute("innerHTML");
     }
     public String[] verifiedAscendingSortingItem() {
         String[] arraySorted = new String[initiateProductListSize()];
@@ -109,26 +111,26 @@ public class SauceDemoInventoryPage extends PageObject {
         return arraySorted;
     }
 
-    public Map<Float, String> initiateMapItemAndPrice() {
-        Map<Float, String> mapThing = new HashMap<>();
-        for (int i=0 ; i<initiateProductListSize() ; i++){
-            mapThing.put(initiatePriceList().get(i), initiateProductList().get(i));
+    public HashMap<String, Float> productAndPrice() {
+        HashMap<String, Float> hm = new HashMap<>();
+        for (int i=0 ; i<initiateProductListSize();i++){
+            hm.put(initiateProductList().get(i), initiatePriceList().get(i));
         }
-        return mapThing;
+        return hm;
     }
 
-    public String[] mapSortedAscProduct() {
-        List<Float> productFromPrice = new ArrayList<Float>(initiateMapItemAndPrice().keySet());
-        List<String> getProductFromPrice = new ArrayList<>();
-        String[] product = new String[initiateProductListSize()];
-        Collections.sort(productFromPrice);
-        for (Float getProduct : productFromPrice){
-            getProductFromPrice.add(initiateMapItemAndPrice().get(getProduct));
+    public HashMap<String, Float> productAndListAsc(){
+        HashMap<String, Float> hmAsc = new HashMap<>();
+        List<String> key = new ArrayList<>(productAndPrice().keySet());
+        Collections.sort(key);
+        //for (int i=0 ; i<key.size() ; i++){
+        //    hmAsc.put(key.get(i), productAndPrice().get(key.get(i)));
+        //}
+
+        for (String k : key){
+            hmAsc.put(k, productAndPrice().get(k));
         }
-        for (int i=0 ; i<initiateMapItemAndPrice().size();i++){
-            product[i] = getProductFromPrice.get(i);
-        }
-        return product;
+        return hmAsc;
     }
 
 }

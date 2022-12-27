@@ -3,29 +3,12 @@ package starter.StepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.thucydides.core.pages.PageObject;
-import starter.Pages.SauceDemoInventoryPage;
-import starter.Step.AddToCartStep;
-import starter.Step.LoginStep;
-import starter.Step.SortingItemStep;
+import starter.BaseTest;
 
 import static org.junit.Assert.*;
 
 
-public class SortingItemStepDefinition extends PageObject {
-    SauceDemoInventoryPage inventory;
-    LoginStep login;
-    AddToCartStep addToCart;
-    SortingItemStep sorting;
-
-    @Given("User already logged in")
-    public void user_already_logged_in() {
-        login.loginWithValidCredentialsFull();
-    }
-    @Given("User already add an item to cart")
-    public void user_already_add_an_item_to_cart() {
-        addToCart.clickAddToCartPreCondition();
-    }
+public class SortingItemStepDefinition extends BaseTest {
     @When("User select sort by {string}")
     public void user_select_sort_by(String sortBy) {
         sorting.selectSortOption(sortBy);
@@ -65,6 +48,5 @@ public class SortingItemStepDefinition extends PageObject {
             default:
                 System.out.println("Not expected");
         }
-        addToCart.clickRemovePreCondition();
     }
 }

@@ -1,9 +1,8 @@
+@login @add-item
 Feature: Remove item feature
-
+  Background: User already login and add an item
 
   Scenario Outline: Remove item from Cart Page
-    Given User already logged in
-    And User already add an item to cart
     When User add item with Add To Cart id <item>
     And User click on cart icon
     And User is directed to Cart Page

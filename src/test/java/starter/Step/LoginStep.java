@@ -10,7 +10,6 @@ import starter.Pages.SauceDemoInventoryPage;
 public class LoginStep extends PageObject {
 
     SauceDemoHomePage home;
-    SauceDemoInventoryPage inventory;
     WebDriver driver = getDriver();
 
     private By usernameField = By.id("user-name");

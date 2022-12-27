@@ -33,6 +33,8 @@ public class LoginStepDefinition {
     public void she_will_be_directed_to_inventory_page() {
         String inventoryUrl = "https://www.saucedemo.com/inventory.html";
         assertEquals(inventoryUrl, inventory.verifiedInventoryPage());
+        String homeTitle = "products";
+        assertEquals(homeTitle, inventory.verifiedInventoryPageHeader().toLowerCase());
     }
     @Then("She fail to login")
     public void sheFailToLogin() {

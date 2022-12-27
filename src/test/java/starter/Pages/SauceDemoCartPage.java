@@ -18,7 +18,8 @@ public class SauceDemoCartPage extends PageObject {
     }
     public int initiateProductListSizeOnCart() {
         List<String> getList = new ArrayList<>();
-        List<WebElement> elementList = driver.findElements(By.className("cart_item"));
+        final By cartItem = By.className("cart_item");
+        List<WebElement> elementList = driver.findElements(cartItem);
         for (WebElement list : elementList){
             getList.add(list.getText());
         }

@@ -1,7 +1,6 @@
+@login @add-item
 Feature: Checkout feature
   Scenario Outline: Checkout a product when product available
-    Given User already logged in
-    And User already add an item to cart
     When User clicked on the Cart icon
     And User redirected to Cart Page
     And User click on Checkout Button

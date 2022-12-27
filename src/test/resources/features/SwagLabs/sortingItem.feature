@@ -1,7 +1,10 @@
+@login @remove-item @add-item
 Feature: Sorting Items
+  Background:
+  User want to sort the item base on price and item and user should login first and add an Item
+    first.
+
   Scenario Outline: Sort product feature
-    Given User already logged in
-    And User already add an item to cart
     When User select sort by <sortOption>
     Then The products should sorted by <sortOption>
     Examples:
