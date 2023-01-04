@@ -37,4 +37,6 @@ public class AddToCartStepDefinition {
         // Verify if Badge Number equals to added item
         // assertEquals(inventory.verifiedNumberBadge(), inventory.verifiedNumberItemHasAddedToCart());
     }
+
+
 }

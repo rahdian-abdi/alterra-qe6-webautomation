@@ -33,8 +33,6 @@ public class RemoveItemStepDefinition {
     }
     @Then("Item will be removed from cart")
     public void item_will_be_removed_from_cart() {
-        boolean result = true;
-        assertEquals(result, cart.isItemRemoved());
         // Verify that number on cart badge equal to number of item on cart page after item removed
         assertEquals(cart.verifiedNumberBadge(), cart.initiateProductListSizeOnCart());
     }

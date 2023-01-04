@@ -6,7 +6,7 @@ import starter.BaseTest;
 
 public class WebDriverHook extends BaseTest {
 
-    @Before(value = "@login")
+    @Before(order = 0, value = "@login")
     public void beforeScenario(){
         home.open();
         login.inputUsername("standard_user");
@@ -14,7 +14,7 @@ public class WebDriverHook extends BaseTest {
         login.clickLogin();
     }
 
-    @Before(value = "@add-item")
+    @Before(order = 1, value = "@add-item")
     public void addInitiateItem(){
         addToCart.clickAddToCartPreCondition();
     }

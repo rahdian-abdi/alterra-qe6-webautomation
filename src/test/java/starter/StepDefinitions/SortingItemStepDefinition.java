@@ -15,6 +15,7 @@ public class SortingItemStepDefinition extends BaseTest {
     }
     @Then("The products should sorted by {string}")
     public void the_products_should_sorted_by(String sortBy) {
+        // Expected - Actual
         assertEquals(sortBy, inventory.verifiedActiveSort());
         switch (sortBy) {
             case "Name (A to Z)":

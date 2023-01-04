@@ -1,4 +1,4 @@
-@login @remove-item @add-item
+@login
 Feature: Sorting Items
   Background:
   User want to sort the item base on price and item and user should login first and add an Item
